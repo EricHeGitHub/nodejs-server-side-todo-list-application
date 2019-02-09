@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>This is my first node js web page</title>
+    <style>
+      body{background: skyblue; font-family: verdana; color: #fff; padding: 30px}
+      h1 {font-size: 48px; text-transform: uppercase; lettering-spacing: 2px; text-align:center}
+      h2 {font-size: 30px; text-transform: uppercase; lettering-spacing: 2px; text-align:center}
+      p, li {font-size : 60px; text-align: center}
+    </style>
+  </head>
+  <body>
+    <% include partials/nav.ejs%>
+    <h1>Welcome to the profile of <%= person%></h1>
+    <strong>Age : <%= data.age%> </strong>
+    <strong>Job : <%= data.job%> </strong>
+    <h2>hobbies</h2>
+    <ul>
+      <% data.hobbies.forEach(function(item){ %>
+        <li><%= item%></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>

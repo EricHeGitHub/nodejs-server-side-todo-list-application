@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>This is my first node js web page</title>
+    <link rel="stylesheet" href="/assets/styles.css" type = "text/css">
+  </head>
+  <body>
+    <% include partials/nav.ejs%>
+    <h1>Contact Us!</h1>
+    <p>Thank you for getting in touch.</p>
+    <p>You contacted <%= data.who%> in the <%= data.department%> department.</p>
+    <p>We will reply to you at <%= data.email%></p>
+  </body>
+</html>

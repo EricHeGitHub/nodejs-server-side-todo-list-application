@@ -1,0 +1,196 @@
+var time = 0;
+console.log('hey ninjas');
+setTimeout(function(){console.log('three seconds have passed')
+},3000)
+
+var timer = setInterval(function(){
+  time += 2;
+  console.log(time + ' seconds have passed. ')
+  if(time > 5) {
+    clearInterval(timer)
+  }
+}, 2000)
+
+console.log(__dirname)
+
+console.log(__filename)
+
+
+//normal function statement
+function sayhi(){
+  console.log('hi')
+}
+
+sayhi()
+
+//function expression
+var sayBye = function() {
+  console.log('bye');
+}
+
+sayBye();
+
+function callFunction(fun){
+  fun();
+}
+
+callFunction(sayBye);
+
+var counter = function(arr){
+  return 'There are ' + arr.length + ' elements in this array.'
+}
+
+var adder = function (a,b){
+  return `The sum of the two number is ${a + b}`
+}
+
+var pi = 3.1415
+
+module.exports = {
+  counter : counter,
+  adder : adder,
+  pi : pi
+}
+
+var events = require('events');
+
+var myEmitter = new events.EventEmitter();
+
+myEmitter.on('someEvent', function(msga, msgb){
+  console.log(msga + "$" + msgb);
+})
+
+myEmitter.emit('someEvent',"a","b" )
+
+var events = require('events');
+var util = require('util')
+
+var Person = function (name) {
+  this.name = name;
+};
+
+util.inherits(Person, events.EventEmitter)
+
+var james = new Person('james');
+var joshi = new Person('joshi');
+var mary = new Person('mary');
+
+var arrayPeople = [james,joshi,mary]
+
+arrayPeople.forEach(function(person){
+  person.on('speak', function(msg){
+    console.log(person.name + " said:" + msg)
+  })
+});
+
+james.emit('speak','Shall we go?');
+joshi.emit('speak', 'I am indian.')
+
+var fs = require('fs')
+
+var readMe = fs.readFileSync('readMe.txt','utf8')
+
+fs.writeFileSync('writeMe.txt', readMe)
+
+var fs = require('fs');
+
+fs.readFile('readMe.txt','utf8', function(err, data){
+  console.log(data)
+  fs.writeFile('writeMe.txt', data, ()=>{});
+})
+
+fs.rmdirSync('stuff');
+
+fs.mkdir('stuff', ()=>{fs.readFile('readMe.txt','utf8',(err, data)=>{
+  fs.writeFile('./stuff/writeMe.txt', data, ()=>{})
+})});
+
+
+var server = http.createServer(function(req, res){
+  console.log('request was made:' + req.url)
+  res.writeHead(200, {'Content-Type' : 'text/plain'});
+  res.end('Hey ninjas')
+});
+
+server.listen(3000, '127.0.0.1')
+console.log('now listening to port 3000')
+
+
+var myReadStream = fs.createReadStream(__dirname + '/readMe.txt', 'utf-8')
+
+
+myReadStream.on('data', function(chunk){
+  console.log('new chunk received:')
+  console.log(chunk)
+})
+
+var myReadStream = fs.createReadStream(__dirname + '/index.html', 'utf-8')
+myReadStream.pipe(res);
+
+var myObject = {
+  name: 'Eric',
+  job: 'developer',
+  age: 29
+}
+
+var http = require('http')
+
+var fs = require('fs')
+
+
+
+// myReadStream.on('data', function(chunk){
+//   console.log('new chunk received:')
+//   myWriteStream.write(chunk)
+// })
+
+var server = http.createServer(function(req, res){
+  console.log('request was made:' + req.url)
+  if(req.url === '/home' || req.url === '/'){
+    res.writeHead('200', {'Content-Type' : 'text/html'});
+    fs.createReadStream(__dirname + "/index.html").pipe(res);
+
+  }
+  else if(req.url === '/contact'){
+    res.writeHead('200', {'Content-Type' : 'text/html'});
+    fs.createReadStream(__dirname + "/contact.html").pipe(res);
+
+  }
+  else if(req.url === '/api/ninjas'){
+    var ninjas = [{name: 'Eric', age: 29}, {name: 'joshi', age: 32}];
+    res.writeHead('200', {'Content-Type': 'text/json'})
+    res.end(JSON.stringify(ninjas))
+  }
+  else{
+    res.writeHead('200', {'Content-Type' : 'text/html'});
+    fs.createReadStream(__dirname + "/404.html").pipe(res);
+  }
+});
+
+server.listen(3000, '127.0.0.1')
+console.log('now listening to port 3000')
+
+var express = require('express');
+var app = express();
+
+app.set('view engine', 'ejs')
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html')
+})
+
+app.get('/contact', function(req, res){
+    res.sendFile(__dirname + '/contact.html')
+})
+
+app.get('/profile/:name', function(req, res){
+  var data = {age : 29, job: 'ninja', hobbies: ['eating', 'fighting', 'fishing']}
+  res.render('profile', {person: req.params.name, data: data})
+})
+
+app.listen(3000);
+
+
+body{background: skyblue; font-family: verdana; color: #fff; padding: 30px}
+h1 {font-size: 48px; text-transform: uppercase; lettering-spacing: 2px; text-align:center}
+p {font-size : 60px; text-align: center}
